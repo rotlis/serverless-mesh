@@ -41,6 +41,5 @@ jobs:
       - name: ping
         run: |
         echo blah
-        echo eksel moksel
       - name: comms
         run: echo todo comms
