@@ -29,9 +29,10 @@ jobs:
         run: |
           pip install pytest
           pip install pytest-cov
-          pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+#          pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
       - name: build
-        run: python -m build
+        run: echo todo
+#        run: python -m build
 
   upload-py:
     name: Upload something somewhere
