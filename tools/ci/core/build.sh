@@ -21,7 +21,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LAST_SUCCESSFUL_COMMIT=$(${CI_PLUGIN} hash last)
 echo "Last commit: ${LAST_SUCCESSFUL_COMMIT}"
 if [[ ${LAST_SUCCESSFUL_COMMIT} == "null" ]]; then
-    COMMIT_RANGE="origin/master"
+    COMMIT_RANGE="origin/main"
 else
     COMMIT_RANGE="$(${CI_PLUGIN} hash current)..${LAST_SUCCESSFUL_COMMIT}"
 fi

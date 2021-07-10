@@ -8,7 +8,7 @@ jobs:
     if: github.event.client_payload.job_type == 'lambda'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Build Lambda
         working-directory: ./lambdas/lambda1
         run: echo lambda {{github.event.client_payload.job}}
@@ -17,7 +17,7 @@ jobs:
     if: github.event.client_payload.job_type == 'stepfunction'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - name: Build SF
         working-directory: ./stepfunctions/stepfucntion_a
         run: echo lambda {{github.event.client_payload.job}}
