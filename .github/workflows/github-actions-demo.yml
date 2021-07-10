@@ -12,7 +12,7 @@ jobs:
         with:
           python-version: 3.9
       - name: Custom action
-        uses: ./actions/test_action
+        uses: ./.github/actions/test_action
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
