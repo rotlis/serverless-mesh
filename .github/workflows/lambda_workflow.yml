@@ -1,0 +1,19 @@
+name: GitHub Actions Demo
+on:
+  push:
+    paths:
+      - 'lambdas/**'
+
+jobs:
+  packagecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: check1
+        id: filepath
+        run: |
+          echo ::set-output name=commitpath::$(git diff-tree --no-commit-id --name-only -r ${{ github.sha }})
+
+      - name: echo
+        run: |
+          echo ${{ steps.filepath.outputs.commitpath }}
