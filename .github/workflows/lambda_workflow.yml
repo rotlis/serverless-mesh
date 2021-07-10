@@ -1,6 +1,8 @@
 name: lambda
 on:
   push:
+    branches:
+      - FXIME_main
     paths:
       - 'lambdas/**'
 

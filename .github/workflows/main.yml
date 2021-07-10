@@ -13,5 +13,5 @@ jobs:
       - name: Run main build runner
         env:
           CI_TOOL: github
-          GITHUB_TOKEN: ${{ secrets.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./tools/ci/core/build.sh
