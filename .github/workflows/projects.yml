@@ -4,14 +4,24 @@ on: repository_dispatch
 
 jobs:
 
-  lambda:
-    if: github.event.client_payload.job_type == 'lambda'
+  lambda1:
+    if: github.event.client_payload.job == 'lambda1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Build Lambda
         working-directory: ./lambdas/lambda1
         run: echo lambda {{github.event.client_payload.job}}
+
+  lambda2:
+    if: github.event.client_payload.job == 'lambda2'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Lambda
+        working-directory: ./lambdas/lambda1
+        run: echo lambda {{github.event.client_payload.job}}
+
 
   stepfunction:
     if: github.event.client_payload.job_type == 'stepfunction'
