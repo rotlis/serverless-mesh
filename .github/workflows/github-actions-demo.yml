@@ -40,7 +40,5 @@ jobs:
     steps:
       - name: ping
         run: |
-        echo "blah"
-        echo "eksel moksel"
-
-
+        echo blah
+        echo eksel moksel
