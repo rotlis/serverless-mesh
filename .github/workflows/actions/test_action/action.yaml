@@ -1,0 +1,12 @@
+name: "my test action"
+author: "Robert Sayfullin"
+description: "todo description"
+outputs:
+  changelog:
+    description: "A CHANGELOG.adoc file added to MR"
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'book'
+  color: 'blue'
