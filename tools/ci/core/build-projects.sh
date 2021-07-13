@@ -39,7 +39,10 @@ PROJECTS=()
 for PROJECT in $@; do
     echo "Triggering build for project '$PROJECT'"
     PROJECT_NAME=$(basename $PROJECT)
-    BUILD_NUM=$(${CI_PLUGIN} build $PROJECT_NAME)    
+    BUILD_NUM=$(${CI_PLUGIN} build $PROJECT_NAME)
+    echo "CI_PLUGIN: $CI_PLUGIN"
+    echo "PROJECT_NAME: $PROJECT_NAME"
+    echo "BUILD_NUM: $BUILD_NUM"
     if [[ -z ${BUILD_NUM} ]] || [[ ${BUILD_NUM} -eq "null" ]]; then
         echo "WARN: No build triggered for project '$PROJECT'. Please check if pipeline is defined in your build tool."
     else 

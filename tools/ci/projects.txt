@@ -1,4 +1,1 @@
 lambdas/*
-routing-layer/*
-stepfunctions/*
-tools/*
