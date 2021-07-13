@@ -23,9 +23,9 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Configuration with default values
-: "${BUILD_MAX_SECONDS:=$(( 15 * 60 ))}"
+: "${BUILD_MAX_SECONDS:=$(( 1 * 60 ))}"
 : "${BUILD_CHECK_AFTER_SECONDS:=15}"
-: "${CI_PLUGIN:=$DIR/../plugins/circleci.sh}"
+: "${CI_PLUGIN:=$DIR/../plugins/github.sh}"
 
 # Validate requirements
 if [[ "$#" -eq 0 ]]; then
@@ -38,11 +38,14 @@ fi
 PROJECTS=()
 for PROJECT in $@; do
     echo "Triggering build for project '$PROJECT'"
-    PROJECT_NAME=$(basename $PROJECT)
-    BUILD_NUM=$(${CI_PLUGIN} build $PROJECT_NAME)
     echo "CI_PLUGIN: $CI_PLUGIN"
+
+    PROJECT_NAME=$(basename $PROJECT)
     echo "PROJECT_NAME: $PROJECT_NAME"
+
+    BUILD_NUM=$(${CI_PLUGIN} build $PROJECT_NAME)
     echo "BUILD_NUM: $BUILD_NUM"
+
     if [[ -z ${BUILD_NUM} ]] || [[ ${BUILD_NUM} -eq "null" ]]; then
         echo "WARN: No build triggered for project '$PROJECT'. Please check if pipeline is defined in your build tool."
     else 
