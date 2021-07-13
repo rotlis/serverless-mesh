@@ -146,9 +146,10 @@ function trigger_build {
     require_not_null "Project name not speficied" ${PROJECT_NAME}
     BRANCH=$(get_branch required)
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+#        "event_type": "build-${PROJECT_NAME}",
     BODY="$(cat <<-EOM
     {
-        "event_type": "build-${PROJECT_NAME}",
+        "event_type": "build_lambda",
         "client_payload": {
             "job": "${PROJECT_NAME}"
         }
