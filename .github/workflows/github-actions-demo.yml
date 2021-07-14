@@ -2,7 +2,7 @@ name: GitHub Actions Demo
 on:
   push:
     branches:
-      - FXIME_main
+      - main
     paths:
       - '.github/**'
 jobs:
