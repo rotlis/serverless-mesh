@@ -96,7 +96,10 @@ function post {
     if [[ ! -z $DATA ]]; then
         DATA="-H 'Content-Type: application/json' -d '$DATA'"
     fi
-    eval "curl -XPOST -s -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
+    echo "************************************"
+    echo "curl -XPOST -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
+    echo "************************************"
+    eval "curl -XPOST -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
 }
 
 ##
@@ -146,10 +149,9 @@ function trigger_build {
     require_not_null "Project name not speficied" ${PROJECT_NAME}
     BRANCH=$(get_branch required)
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-#        "event_type": "build-${PROJECT_NAME}",
     BODY="$(cat <<-EOM
     {
-        "event_type": "build_lambda",
+        "event_type": "build-${PROJECT_NAME}",
         "client_payload": {
             "job": "${PROJECT_NAME}"
         }
