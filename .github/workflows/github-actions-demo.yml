@@ -18,6 +18,8 @@ jobs:
           python-version: 3.9
       - name: Custom action
         uses: ./.github/actions/test_action
+      - name: Custom js action
+        uses: ./.github/actions/js_action
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
