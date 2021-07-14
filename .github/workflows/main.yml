@@ -7,11 +7,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    permissions:
+      metadata: read
+      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Run main build runner
         env:
           CI_TOOL: github
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NATIVE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
         run: ./tools/ci/core/build.sh
