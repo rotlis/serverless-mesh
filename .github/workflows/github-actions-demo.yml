@@ -20,6 +20,9 @@ jobs:
         uses: ./.github/actions/test_action
       - name: Custom js action
         uses: ./.github/actions/js_action
+        id: js_hello
+        with:
+          who-to-greet: 'Mona the Octocat'
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
