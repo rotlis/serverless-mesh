@@ -78,7 +78,8 @@ else
 fi
 
 # Build output 
-PROJECTS_TO_BUILD=$(echo -e "$CHANGED_DEPENDENCIES" | tsort | tac)
+#PROJECTS_TO_BUILD=$(echo -e "$CHANGED_DEPENDENCIES" | tsort | tac)
+PROJECTS_TO_BUILD=$(echo -e "$CHANGED_DEPENDENCIES" | tsort | cat)
 for PROJECT in $(echo -e "$CHANGED_PROJECTS"); do
     if [[ ! $(echo -e "$PROJECTS_TO_BUILD" | grep "$PROJECT") ]]; then    
         PROJECTS_TO_BUILD="$PROJECT $PROJECTS_TO_BUILD"
