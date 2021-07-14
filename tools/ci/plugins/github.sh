@@ -96,7 +96,7 @@ function post {
     if [[ ! -z $DATA ]]; then
         DATA="-H 'Content-Type: application/json' -d '$DATA'"
     fi
-    eval "curl -XPOST -g -v -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
+    eval "curl -XPOST -s -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
 }
 
 ##
@@ -142,7 +142,6 @@ function get_branch {
 ##
 function trigger_build {
     local PROJECT_NAME=$1
-#    echo "github triggering build for project ${PROJECT_NAME}"
     require_not_null "Project name not speficied" ${PROJECT_NAME}
     BRANCH=$(get_branch required)
     NOW=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -155,12 +154,6 @@ function trigger_build {
     }
 EOM
     )"
-
-   echo $BODY
-    BODY='{"event_type": "build-${PROJECT_NAME}", "client_payload": { "job": "${PROJECT_NAME}" } }'
-
-   echo $BODY
-
     post dispatches "${BODY}"
     for (( WAIT_SECONDS=0; WAIT_SECONDS<=5; WAIT_SECONDS+=1 )); do
         WFS=$(get 'actions/runs?event=repository_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'") ]')
@@ -193,7 +186,7 @@ EOM
 ##
 function get_build_status {
     local BUILD_ID=$1
-    require_not_null "Build id not speficied" ${BUILD_ID}
+    require_not_null "Build id not specified" ${BUILD_ID}
     STATUS_RESPONSE=$(get actions/runs/${BUILD_ID})
     STATUS=$(echo "$STATUS_RESPONSE" | jq -r .conclusion)
     case $STATUS in
@@ -221,7 +214,7 @@ function get_build_status {
 ##
 function kill_build {
     local BUILD_ID=$1
-    require_not_null "Build id not speficied" ${BUILD_ID}
+    require_not_null "Build id not specified" ${BUILD_ID}
     STATUS_RESPONSE=$(post actions/runs/${BUILD_ID}/cancel)
 }
 
