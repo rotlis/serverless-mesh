@@ -23,7 +23,7 @@ set -e
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 # Configuration with default values
-: "${BUILD_MAX_SECONDS:=$(( 1 * 60 ))}"
+: "${BUILD_MAX_SECONDS:=$(( 1 * 20 ))}"
 : "${BUILD_CHECK_AFTER_SECONDS:=15}"
 : "${CI_PLUGIN:=$DIR/../plugins/github.sh}"
 

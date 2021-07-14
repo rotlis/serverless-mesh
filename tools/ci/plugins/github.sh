@@ -96,10 +96,7 @@ function post {
     if [[ ! -z $DATA ]]; then
         DATA="-H 'Content-Type: application/json' -d '$DATA'"
     fi
-    echo "************************************"
-    echo "curl -XPOST -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
-    echo "************************************"
-    eval "curl -XPOST -g -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
+    eval "curl -XPOST -g -v -H 'Accept: application/vnd.github.v3+json' -H 'Authorization: token ${GITHUB_TOKEN}' ${DATA} ${GITHUB_URL}/${URL}"
 }
 
 ##
@@ -158,6 +155,12 @@ function trigger_build {
     }
 EOM
     )"
+
+   echo $BODY
+    BODY='{"event_type": "build-${PROJECT_NAME}", "client_payload": { "job": "${PROJECT_NAME}" } }'
+
+   echo $BODY
+
     post dispatches "${BODY}"
     for (( WAIT_SECONDS=0; WAIT_SECONDS<=5; WAIT_SECONDS+=1 )); do
         WFS=$(get 'actions/runs?event=repository_dispatch' | jq '[ .workflow_runs[] | select(.created_at > "'${NOW}'" and .head_branch == "'${BRANCH}'") ]')
