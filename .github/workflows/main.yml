@@ -7,9 +7,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    permissions:
-      metadata: read
-      contents: write
+#    permissions:
+#      metadata: read
+#      contents: write
     steps:
       - uses: actions/checkout@v2
       - name: Run main build runner
